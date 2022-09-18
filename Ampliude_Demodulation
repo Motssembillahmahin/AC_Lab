@@ -1,0 +1,37 @@
+clc;
+close all;
+clear all;
+Ac = 10;
+Am = 7;
+fc = 100;
+fm = 10;
+fs = 1000;
+t = (0:1/fs:1);
+%message signal
+Ms = Am*sin(2*pi*fm*t);
+%carrier signal
+Cs = Ac*sin(2*pi*fc*t);
+m = Am/Ac;
+
+%Modulating Signl
+eq = (1+m.*sin(2*pi*fm*t)).*Cs;
+subplot(4,1,1);
+plot(t,Ms);
+xlabel('Time(sec)');ylabel('Amplitude(V)');
+title('Message signal');
+
+subplot(4,1,2);
+plot(t,Cs);
+xlabel('Time(sec)');ylabel('Amplitude(V)');
+title('Carrier signal');
+
+subplot(4,1,3);
+plot(t,eq,t,Ac+Ms,t,-Ac-Ms);
+xlabel('Time(sec)');ylabel('Amplitude(V)');
+title('Modulated signal');
+
+dm = (1/pi)*(Ac+Ms);
+subplot(4,1,4);
+plot(t,dm);
+xlabel('Time(sec)');ylabel('Amplitude(V)');
+title('Demodulated signal');
